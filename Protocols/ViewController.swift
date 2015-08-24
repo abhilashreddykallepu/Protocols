@@ -8,18 +8,70 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,UIPickerViewDataSource,nameProtocol {
 
+    @IBOutlet weak var buttonTapped: UIButton!
+    
+    @IBAction func moveNext(sender: AnyObject) {
+        
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let secondVC = storyBoard.instantiateViewControllerWithIdentifier("second") as! secondViewController
+        secondVC.delegateName = self
+        self.presentViewController(secondVC, animated: true, completion: nil)
+        
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+      
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+  
+    // returns the number of 'columns' to display.
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // returns the # of rows in each component..
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 10
     }
 
+    
+    func nameHasSent(name: String,controller: secondViewController) {
+        
+        println("tehs sent name is ",name)
+    }
 
+    
 }
+
+
+
+
+
+extension ViewController : UIPickerViewDelegate {
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        return "sample picker"
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

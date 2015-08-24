@@ -15,7 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        DDLog.addLogger(DDASLLogger.sharedInstance())
+        DDLog.addLogger(DDTTYLogger.sharedInstance())
+        let operation = AFURLConnectionOperation()
+        //added log files
+        
+        let logger = DDFileLogger()
+        logger.rollingFrequency =  60*60*24
+        logger.logFileManager.maximumNumberOfLogFiles = 7
+        DDLog .addLogger(logger)
+
+        // Convert from this://        DDLogVerbose("User selected file:%@ withSize:%u", logger, fileSize);        // Override point for customization after application launch.
         return true
     }
 
